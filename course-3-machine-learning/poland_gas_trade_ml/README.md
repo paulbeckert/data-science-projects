@@ -40,7 +40,7 @@ In 2023, Poland reported many of its natural gas imports as coming from aggregat
 
 1. Download the Eurostat dataset `nrg_ti_gas` (imports of natural gas by partner country) as CSV and save it as `data/estat_nrg_ti_gas_en.csv`.
 2. Run the scripts in `src/` in this order:
-   `data_prep.py`, `prepare_training_data.py`, `generate_aggregate_country_mapping.py`, `baseline_disaggregation.py`, `visualize_baseline.py`, `feature_engineering.py`, `ml_model.py`, `backtest_ml_disaggregation.py`, `evaluate_backtest.py`, `visualize_ml_vs_baseline.py`.
+   `data_prep.py`, `prepare_training_data.py`, `generate_aggregate_country_mapping.py`, `baseline_disaggregation.py`, `visualize_baseline.py`, `feature_engineering.py`, `ml_model.py`, `backtest_ml_disaggregation.py`, `evaluate_backtest.py`, `visualize_ml_vs_baseline.py`, `prepare_flow_tables.py`, `visualize_gas_trade_gif.py`, `visualize_gas_trade_sankey_gif.py`.
 3. Review the output plots in `data/` and the printed metrics.
 
 

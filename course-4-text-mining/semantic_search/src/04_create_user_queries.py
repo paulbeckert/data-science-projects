@@ -29,7 +29,7 @@ def create_user_queries():
     # Create DataFrame
     df = pd.DataFrame({
         'query': user_queries,
-        'category': ['generic'] * 10 + ['vocabulary_gap'] * 10 + ['regional_specific'] * 5,
+        'category': ['generic'] * 10 + ['vocabulary_gap'] * 6,
         'expected_results': ['multiple_specific_variants'] * len(user_queries)
     })
     
