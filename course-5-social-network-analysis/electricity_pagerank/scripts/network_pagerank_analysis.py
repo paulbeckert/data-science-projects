@@ -1,20 +1,24 @@
 """Network PageRank Analysis for European Electricity Trade
 
-Step 1 Prototype: Load trade flow edge list and perform basic validation.
+Builds a directed graph of cross-border electricity flows, with edges from
+exporter to importer weighted by the flow in GWh, and prints for each country:
+- in and out strength (total imports and exports) and net export
+- PageRank (damping factor configurable with --alpha)
+- betweenness centrality
+- a classification as producer, transit, consumer or other, when domestic
+  generation is available
+- a role (transit hub, producer, consumer or balanced) from PageRank and net export
 
-Planned Next Steps (not yet implemented):
-- Build directed weighted graph
-- Compute PageRank centrality (alpha configurable)
-- Merge with optional domestic generation data
-- Export results to CSV and basic visualization
+It also saves a scatter plot of PageRank against betweenness, with points sized
+by generation.
 
-Usage (current step only):
-    python network_pagerank_analysis.py --trade-file ../data/electricity_trade_2023_sample.csv
+Usage:
+    python network_pagerank_analysis.py --trade-file ../data/electricity_trade_2023.csv
 
 Assumptions:
-- CSV has at least columns: exporter, importer, flow_gwh
-- flow_gwh is positive numeric value (net annual flow A -> B)
-
+- The trade file has at least the columns exporter, importer, flow_gwh
+- flow_gwh is positive (net annual flow from exporter to importer)
+- The optional generation file has the columns country, generation_gwh
 """
 from __future__ import annotations
 import argparse
