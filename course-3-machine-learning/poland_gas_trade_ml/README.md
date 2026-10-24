@@ -19,6 +19,11 @@ In 2023, Poland reported many of its natural gas imports as coming from aggregat
 7. **Backtest**: Train only on years before a test year (2019 by default), predict the country split of that year as if it were reported as aggregates, and compare with the real country data using MAE, RMSE and R².
 8. **Comparison**: Plot the model results next to the baseline for each aggregate.
 
+## Limitations
+
+- Both methods learn from historical shares, so they can't know about sudden changes. Poland stopped importing Russian gas in 2022, but with Eurostat data downloaded in October 2026 both still give Russia between 2 and 3.3 billion m³ of the 2023 "Not specified" imports.
+- The backtest R² of about 0.99 looks better than the model is. Most rows are countries with zero imports, and most aggregates hold only one real supplier, which is easy to predict. The one real test is the 2019 split of "Other European countries" between Czechia and Norway, where the true split is 70/30 and the model predicts 50/49.
+
 ## Open Ideas
 
 - Compare the results with the partner countries' reported exports.
