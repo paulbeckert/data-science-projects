@@ -16,8 +16,6 @@ def add_lagged_features(df, lags=[1, 2]):
 def main():
     df = pd.read_csv(TRAINING_DATA_PATH)
     df_with_lags = add_lagged_features(df, lags=[1, 2])
-    # Add post-invasion flag
-    df_with_lags['post_invasion_flag'] = (df_with_lags['year'] >= 2022).astype(int)
     df_with_lags.to_csv(OUTPUT_PATH, index=False)
     print(f"Saved training data with lagged features to {OUTPUT_PATH}")
     print(df_with_lags.head())

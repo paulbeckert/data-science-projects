@@ -33,10 +33,8 @@ train = train.dropna(subset=['import_value_lag1', 'import_value_lag2', 'share_of
 
 # Encode categorical variables
 le_country = LabelEncoder()
-le_agg = LabelEncoder()
 le_country.fit(history['partner'])
 train['country_enc'] = le_country.transform(train['partner'])
-train['aggregate_enc'] = le_agg.fit_transform(train['partner'])  # For now, use partner as aggregate (can be improved)
 
 # Features and target
 features = ['year', 'country_enc', 'import_value_lag1', 'import_value_lag2', 'share_of_total_lag1', 'share_of_total_lag2']
