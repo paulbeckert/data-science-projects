@@ -14,8 +14,8 @@ In 2023, Poland reported many of its natural gas imports as coming from aggregat
 2. **Mapping**: Assign countries to aggregates using region logic and user review, ensuring no country is in more than one aggregate.
 3. **Baseline Disaggregation**: Use historical country shares to estimate the 2023 breakdown for each aggregate, ensuring the sum matches the reported total.
 4. **Visualization**: Visualize the baseline results and compare with previous years to check plausibility and highlight changes in trade structure.
-5. **Feature Engineering**: Add the country's import value and share of total imports from the two previous years, plus a flag for years from 2022 on (after the invasion of Ukraine).
-6. **Machine Learning Model**: Train a random forest regressor on the years before 2023 to predict each country's share within its aggregate. The predicted shares are normalized so they add up to the reported aggregate total.
+5. **Feature Engineering**: Add the country's import value and share of total imports from the two previous years.
+6. **Machine Learning Model**: Train a random forest regressor to predict each country's share within its aggregate. The predicted shares are normalized so they add up to the reported aggregate total. 2022 is left out because the Russian invasion of Ukraine disrupted the trade pattern too much. The model trains on the years up to 2021, and the 2023 prediction uses 2021 and 2020 as the previous years.
 7. **Backtest**: Train only on years before a test year (2019 by default), predict the country split of that year as if it were reported as aggregates, and compare with the real country data using MAE, RMSE and R².
 8. **Comparison**: Plot the model results next to the baseline for each aggregate.
 

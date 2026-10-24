@@ -18,14 +18,15 @@ AGGREGATES = [
 ]
 
 # Load data
-train = pd.read_csv(TRAINING_PATH)
+history = pd.read_csv(TRAINING_PATH)
 cleaned = pd.read_csv(CLEANED_PATH)
 
-# Only use years before 2023 for training
-train = train[train['year'] < 2023]
-
 # Filter for Natural gas only
-train = train[train['product'] == 'Natural gas']
+history = history[history['product'] == 'Natural gas']
+
+# 2022 is left out, both for training and as input for the 2023 prediction, because the
+# Russian invasion of Ukraine disrupted the trade pattern so much that it would drive the split
+train = history[history['year'] < 2022]
 
 # Drop rows with missing lagged features (optional: could impute or fillna(0))
 train = train.dropna(subset=['import_value_lag1', 'import_value_lag2', 'share_of_total_lag1', 'share_of_total_lag2'])
@@ -33,11 +34,12 @@ train = train.dropna(subset=['import_value_lag1', 'import_value_lag2', 'share_of
 # Encode categorical variables
 le_country = LabelEncoder()
 le_agg = LabelEncoder()
-train['country_enc'] = le_country.fit_transform(train['partner'])
+le_country.fit(history['partner'])
+train['country_enc'] = le_country.transform(train['partner'])
 train['aggregate_enc'] = le_agg.fit_transform(train['partner'])  # For now, use partner as aggregate (can be improved)
 
 # Features and target
-features = ['year', 'country_enc', 'import_value_lag1', 'import_value_lag2', 'share_of_total_lag1', 'share_of_total_lag2', 'post_invasion_flag']
+features = ['year', 'country_enc', 'import_value_lag1', 'import_value_lag2', 'share_of_total_lag1', 'share_of_total_lag2']
 X = train[features]
 y = train['share_of_total']
 
@@ -60,20 +62,18 @@ for _, agg_row in tagged_2023.iterrows():
     # Countries assigned to this aggregate
     assigned_countries = mapping_df[mapping_df['aggregate'] == aggregate]['country'].unique()
     for country in assigned_countries:
-        # Get lagged features for this country
-        # Use 2022 and 2021 values
-        lagged = train[(train['partner'] == country) & (train['product'] == product) & (train['year'] == 2022)]
+        # Use the 2021 and 2020 values as lags, skipping 2022
+        lagged = history[(history['partner'] == country) & (history['year'] == 2021)]
         if lagged.empty:
             continue  # No lagged data for this country
         row = lagged.iloc[0]
         X_pred = pd.DataFrame([{
             'year': 2023,
             'country_enc': le_country.transform([country])[0],
-            'import_value_lag1': row['import_value_lag1'],
-            'import_value_lag2': row['import_value_lag2'],
-            'share_of_total_lag1': row['share_of_total_lag1'],
-            'share_of_total_lag2': row['share_of_total_lag2'],
-            'post_invasion_flag': 1
+            'import_value_lag1': row['import_value'],
+            'import_value_lag2': row['import_value_lag1'],
+            'share_of_total_lag1': row['share_of_total'],
+            'share_of_total_lag2': row['share_of_total_lag1']
         }])
         pred_share = model.predict(X_pred)[0]
         pred_value = pred_share * total_value
