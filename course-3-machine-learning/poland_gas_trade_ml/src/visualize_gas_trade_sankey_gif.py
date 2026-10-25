@@ -246,7 +246,6 @@ def animate(frame):
         # Rounding logic for left side
         small_share_names = ['Former Soviet', 'Belgium', 'Other countries of former Soviet Union (before 1991)', 'Belgium']
         one_digit_names = ['Americas', 'Africa', 'Other American countries (aggregate changing according to the context)', 'Other African countries (aggregate changing according to the context)']
-        # Updated rounding logic for left side
         if data['display_name'] in ['Former Soviet', 'Belgium'] or data['name'] in ['Other countries of former Soviet Union (before 1991)', 'Belgium']:
             pct_str = f"{data['pct']:.2f}%"
         else:
@@ -278,7 +277,6 @@ def animate(frame):
         # Rounding logic
         small_share_names = ['Former Soviet', 'Belgium', 'Other countries of former Soviet Union (before 1991)', 'Belgium']
         one_digit_names = ['Americas', 'Africa', 'Other American countries (aggregate changing according to the context)', 'Other African countries (aggregate changing according to the context)']
-        # Updated rounding logic for right side
         if country['display_name'] in ['Former Soviet', 'Belgium'] or country['name'] in ['Belgium']:
             pct_str = f"{country['pct']:.2f}%"
         else:
@@ -381,7 +379,7 @@ def animate(frame):
                 y2 = y_end
                 ax.plot([x1, x2], [y1, y2], color=line_color, linewidth=2, solid_capstyle='round')
     
-    # Caption with accuracy, source, disclaimer, and color code
+    # Caption with backtest note, disclaimer and source
     caption = (
         "Model backtested on 2019, see the README for its limitations. "
         "'Other' represents multiple countries aggregated for visualization clarity.\n"

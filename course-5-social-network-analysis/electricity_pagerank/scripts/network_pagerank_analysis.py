@@ -126,7 +126,7 @@ def main(argv: list[str] | None = None) -> int:
     print("\nHead of cleaned trade flow table:")
     print(df.head())
 
-    # Step 2: Build directed weighted graph
+    # Build directed weighted graph
     G = nx.DiGraph()
     for _, row in df.iterrows():
         G.add_edge(row.exporter, row.importer, weight=row.flow_gwh)
@@ -143,7 +143,7 @@ def main(argv: list[str] | None = None) -> int:
     for n in sorted(all_nodes):
         print(f"{n:<8} {in_strength.get(n,0):12,.0f} {out_strength.get(n,0):13,.0f} {net_export[n]:12,.0f}")
 
-    # Step 3: Compute PageRank
+    # Compute PageRank
     alpha = args.alpha
 
     pagerank = nx.pagerank(G, alpha=alpha, weight="weight")
@@ -163,7 +163,7 @@ def main(argv: list[str] | None = None) -> int:
     betweenness = nx.betweenness_centrality(G, weight="weight", normalized=True)
 
 
-    # Step 4: Merge with production data and classify
+    # Merge with generation data and classify
     gen_path = args.generation_file
     try:
         generation = pd.read_csv(gen_path)
@@ -228,7 +228,7 @@ def main(argv: list[str] | None = None) -> int:
               col: format_col(col) for col in ["generation_gwh", "in_strength", "out_strength", "net_export", "pagerank", "betweenness"]
           }))
 
-    # --- Brand-styled Visualization: PageRank vs Betweenness ---
+    # --- Scatter plot: PageRank vs betweenness ---
     import matplotlib.pyplot as plt
     import seaborn as sns
     import numpy as np
@@ -239,11 +239,11 @@ def main(argv: list[str] | None = None) -> int:
     plt.figure(figsize=(11, 8))
     sns.set(style="whitegrid")
 
-    # Set font to PPMori-Light-like (fallback to DejaVu Sans if not available)
+    # Light sans-serif font
     plt.rcParams['font.family'] = 'DejaVu Sans'
     plt.rcParams['font.weight'] = 'light'
 
-    # Brand color palette for diverging colormap (eco green, digital blue, sunny yellow)
+    # Diverging colormap for net export, green for importers, yellow around zero, blue for exporters
     brand_colors = ['#3ACB81', '#FFD70C', '#3F59DC']
     brand_cmap = LinearSegmentedColormap.from_list('brand_cmap', brand_colors, N=256)
 
@@ -254,12 +254,11 @@ def main(argv: list[str] | None = None) -> int:
     plot_df['generation_twh'] = plot_df['generation_gwh'] / 1000
     plot_df['net_export_twh'] = plot_df['net_export'] / 1000
 
-    # Normalize sizes for better visibility (using TWh)
-    # Increase the scale factor to make all circles bigger
+    # Bubble area grows with generation, the largest country gets size 5000
     size_scale = 5000 / plot_df['generation_twh'].max() if plot_df['generation_twh'].max() > 0 else 1
 
     # Scatter plot
-    # Restore 3-color brand colormap for net export
+    # Three-color colormap for net export, centered on zero
     from matplotlib.colors import TwoSlopeNorm
     vmin = plot_df['net_export_twh'].min()
     vmax = plot_df['net_export_twh'].max()
@@ -303,7 +302,7 @@ def main(argv: list[str] | None = None) -> int:
         arrowprops=dict(arrowstyle='-', color='gray', lw=0.6)
     )
 
-    # Bubble size legend (reference circles for generation, now in TWh)
+    # Bubble size legend for generation in TWh
     ref_sizes_twh = [5, 50, 500]  # TWh
     # Drawn in its own framed inset, because a matplotlib legend doesn't grow to fit large markers
     legend_ax = plt.gca().inset_axes([0.66, 0.72, 0.32, 0.26])
@@ -322,7 +321,7 @@ def main(argv: list[str] | None = None) -> int:
     plt.title("Who matters vs who connects - Electricity trade in Europe (2023)", fontsize=16, weight='light')
     plt.xlabel("Betweenness centrality", fontsize=13, weight='light')
     plt.ylabel("PageRank", fontsize=13, weight='light')
-    # Set axes to start at requested values
+    # Start both axes just below zero
     plt.xlim(left=-0.01)
     plt.ylim(bottom=-0.002)
     plt.grid(True, linestyle='--', alpha=0.5, zorder=0)

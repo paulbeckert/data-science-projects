@@ -10,9 +10,11 @@ People search with different words than the database uses. They type "gasoline",
 
 Each product's name and product information text are combined into one description, so the model sees more than the short name. All 4,310 products with a description in ecoinvent v3.11 are embedded once. A query is embedded the same way and compared to every product with cosine similarity, and the closest ones are returned.
 
+For four demo queries (electricity, natural gas, gasoline and aluminium), a few hand-picked products also get a fixed boost between 1.02 and 1.25 and are put first. So for those queries the order and scores are partly set by hand.
+
 ## Example results
 
-Top 3 matches for four test queries, with their cosine similarity:
+Top 3 matches for four test queries, with their scores. Only the steel row is plain cosine similarity, the other three include the boosts.
 
 | Query | Case | Top matches |
 | --- | --- | --- |
@@ -21,7 +23,7 @@ Top 3 matches for four test queries, with their cosine similarity:
 | aluminum sheets | everyday words to a manufacturing process | sheet rolling, aluminium (0.746)<br>aluminium, wrought alloy (0.575)<br>aluminium, cast alloy (0.511) |
 | electricity | technical variants | electricity, low voltage (0.666)<br>electricity, high voltage (0.635)<br>electricity, medium voltage (0.570) |
 
-Across all test queries the best match had an average similarity of 0.604. That says how close the texts are, not whether the match is what a user wanted. Testing with real users would be the next step.
+Across all test queries the best match had an average score of 0.604, boosts included. That says how close the texts are, not whether the match is what a user wanted. Testing with real users would be the next step.
 
 ## Open ideas
 

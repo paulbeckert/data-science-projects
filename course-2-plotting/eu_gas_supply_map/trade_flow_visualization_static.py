@@ -237,7 +237,7 @@ def visualize_gas_flows(json_file_path, year=None, output_image=None):
     ax.set_global()
     ax.spines['geo'].set_visible(False)
 
-    # Set specific map extent instead of global view
+    # Map extent covering the EU and its main gas suppliers
     # Format: [lon_min, lon_max, lat_min, lat_max] in degrees (longitude/latitude)
     ax.set_extent([-110, 65, 0, 75], crs=ccrs.PlateCarree())
 
@@ -259,7 +259,7 @@ def visualize_gas_flows(json_file_path, year=None, output_image=None):
     if abs(total_share - 1.0) > 0.01:  # Allow small rounding errors
         print("WARNING: Shares do not sum to 1.0. Adjust values.")
 
-    # Function to get line width based on share - increased width
+    # Line width grows with the share
     def get_line_width(share, max_width=10, min_width=1.5):
         # Use a more exponential scaling to emphasize larger flows
         # This will make larger flows visibly thicker while keeping small flows visible
@@ -515,7 +515,7 @@ def visualize_gas_flows(json_file_path, year=None, output_image=None):
         fontsize=8,
         ha='center',
         va='center',
-        bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', pad=1),  # Added back white background
+        bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', pad=1),
         transform=ccrs.PlateCarree(),
         zorder=16
     )
@@ -557,7 +557,7 @@ def visualize_gas_flows(json_file_path, year=None, output_image=None):
     pie_data = [pipeline_total, lng_total, domestic_share]
     pie_colors = [FLOW_COLOR, FLOW_COLOR, LIGHT_BLUE]  # ECO_GREEN for pipeline and LNG, LIGHT_BLUE for domestic
 
-    # Updated pie chart labels with revised wording
+    # Pie chart labels
     pie_labels = [
         f'Pipeline Import share: {pipeline_total:.2f}', 
         f'LNG Import share: {lng_total:.2f}', 

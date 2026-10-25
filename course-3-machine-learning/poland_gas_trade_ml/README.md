@@ -44,10 +44,9 @@ Model and baseline split of "Other European countries", the largest aggregate. T
 
 ## Repository Structure
 
-- `src/` — Data processing, mapping, modeling, and visualization scripts
-- `data/` — Raw and processed data (ignored by git)
-- `README.md` — Project summary
-- `.gitignore` — Ignore data, logs, and Python artifacts
+- `src/` holds the data processing, mapping, modeling and visualization scripts
+- `data/` holds the raw and processed data, which git ignores
+- `images/` holds the result images shown in this README
 
 ## How to Run
 

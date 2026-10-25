@@ -86,7 +86,7 @@ def load_eurostat_supply_data(filepath: Path, years: Optional[List[int]] = None)
 
     supply_data = pd.read_csv(
         filepath, encoding="utf-8", low_memory=False,
-    )  # Added low_memory=False to avoid dtype warnings
+    )  # low_memory=False avoids mixed dtype warnings
 
     missing = set(column_map.keys()) - set(supply_data.columns)
     if missing:

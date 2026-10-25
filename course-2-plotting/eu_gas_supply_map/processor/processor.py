@@ -104,7 +104,7 @@ def process_gas_trade_data(
                 country_coordinates,
                 [year]
             )
-            logger.info(f"Successfully processed year {year}")
+            logger.info(f"Processed year {year}")
         except Exception as e:
             logger.error(f"Error processing year {year}: {str(e)}")
             logger.debug("Detailed error", exc_info=True)

@@ -249,7 +249,7 @@ def process_intra_eu_flows(intra_eu_imports: pd.DataFrame) -> List[Dict[str, Any
         if volume <= 0:
             continue
         
-        # Include volume but not share in output - using name only, removed geography
+        # Volume only, no share, keyed by country name
         intra_eu_flows.append({
             'name': country,
             'import_volume': float(volume),
@@ -267,7 +267,7 @@ def process_intra_eu_flows(intra_eu_imports: pd.DataFrame) -> List[Dict[str, Any
         if volume <= 0:
             continue
         
-        # Include volume but not share in output - using name only, removed geography
+        # Volume only, no share, keyed by country name
         intra_eu_flows.append({
             'name': lng_name,
             'import_volume': float(volume),

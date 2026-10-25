@@ -11,7 +11,7 @@ class ProductMatcher:
         self.model = SentenceTransformer(model_name)
         self.product_data = None
         self.embeddings = None
-        print("Model loaded successfully!")
+        print("Model loaded.")
     
     def load_data(self, filepath=None):
         """Load the cleaned product data"""
@@ -38,12 +38,12 @@ class ProductMatcher:
         print(f"Created embeddings with shape: {self.embeddings.shape}")
         
     def find_matches(self, query, top_k=5):
-        """Find the most similar products with automatic smart filtering"""
+        """Find the most similar products, with fixed boosts for a few demo queries"""
         if self.embeddings is None:
             raise ValueError("Create embeddings first using create_embeddings()")
         
         # Use a larger window for all queries to ensure filtering has good options
-        extended_top_k = min(top_k * 10, 40)  # Expanded for all queries
+        extended_top_k = min(top_k * 10, 40)
         
         # Create query embedding
         query_embedding = self.model.encode([query])
@@ -62,13 +62,13 @@ class ProductMatcher:
                 'description': self.product_data.iloc[idx]['Product Information'][:200] + "..."
             })
         
-        # Apply automatic smart filtering
+        # Boost hand-picked products for a few demo queries
         filtered_results = self._smart_filter(query, extended_results)
         
         return filtered_results[:top_k]
 
     def _smart_filter(self, query, matches):
-        """Automatically apply smart filtering based on query type"""
+        """Boost hand-picked products when the query contains one of the demo terms"""
         
         query_lower = query.lower()
         
@@ -196,7 +196,7 @@ class ProductMatcher:
         print("="*80)
         
         for query in queries:
-            print(f"\n🔍 User searches for: '{query}'")
+            print(f"\nUser searches for: '{query}'")
             print("-" * 50)
             
             matches = self.find_matches(query, top_k=3)
