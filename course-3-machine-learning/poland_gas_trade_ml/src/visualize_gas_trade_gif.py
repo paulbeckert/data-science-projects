@@ -94,7 +94,7 @@ def animate(frame):
     
     if frame < transition_frame:
         # Stage 1: Aggregated geographies
-        ax.text(5, 9.7, 'Poland Natural Gas Imports 2023 (Aggregated Reporting)', ha='center', fontsize=18, fontweight='bold')
+        ax.text(5, 9.7, 'Poland Natural Gas Supply 2023 (Aggregated Reporting)', ha='center', fontsize=18, fontweight='bold')
         # Poland box
         poland_box = FancyBboxPatch((7, 4), 2, 2, boxstyle="round,pad=0.1",
                                     facecolor='#dc143c', edgecolor='black', linewidth=2)
@@ -125,7 +125,7 @@ def animate(frame):
         ax.text(5, 0.3, 'Stage 1: Aggregated geographies (reported)', ha='center', fontsize=9, style='italic', alpha=0.7)
     else:
         # Stage 2: Disaggregated countries
-        ax.text(5, 9.7, 'Poland Natural Gas Imports 2023 (Disaggregated/ML)', ha='center', fontsize=18, fontweight='bold')
+        ax.text(5, 9.7, 'Poland Natural Gas Supply 2023 (Disaggregated/ML)', ha='center', fontsize=18, fontweight='bold')
         poland_box = FancyBboxPatch((7, 4), 2, 2, boxstyle="round,pad=0.1",
                                     facecolor='#dc143c', edgecolor='black', linewidth=2)
         ax.add_patch(poland_box)

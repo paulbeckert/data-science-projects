@@ -214,7 +214,7 @@ def animate(frame):
     ax.axis('off')
     
     # Title
-    ax.text(5, 10.2, 'Poland natural gas imports (2023): ML disaggregation',
+    ax.text(5, 10.2, 'Poland natural gas supply (2023): ML disaggregation',
             ha='center', fontsize=21, fontweight='bold')
     
     # Subtitle with color descriptions on the next row
@@ -383,7 +383,7 @@ def animate(frame):
     
     # Caption with accuracy, source, disclaimer, and color code
     caption = (
-        "Model accuracy: R² > 0.98, MAE < 1% validated on historical data."
+        "Model backtested on 2019, see the README for its limitations. "
         "'Other' represents multiple countries aggregated for visualization clarity.\n"
         "Source: Eurostat (raw data)."
     )

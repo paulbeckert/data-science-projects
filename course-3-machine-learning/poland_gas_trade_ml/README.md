@@ -19,6 +19,16 @@ In 2023, Poland reported many of its natural gas imports as coming from aggregat
 7. **Backtest**: Train only on years before a test year (2019 by default), predict the country split of that year as if it were reported as aggregates, and compare with the real country data using MAE, RMSE and R².
 8. **Comparison**: Plot the model results next to the baseline for each aggregate.
 
+## Results
+
+Poland's 2023 natural gas supply, with the reported aggregates split into countries by the model:
+
+![Sankey of Poland's 2023 natural gas supply](images/poland_gas_supply_2023_sankey.gif)
+
+Model and baseline split of "Other European countries", the largest aggregate:
+
+![Model vs baseline for Other European countries](images/ml_vs_baseline_other_european_countries_2023.png)
+
 ## Limitations
 
 - Both methods learn from historical shares, so they can't know about sudden changes. Poland stopped importing Russian gas in 2022, but with Eurostat data downloaded in October 2026 both still give Russia between 2 and 3.3 billion m³ of the 2023 "Not specified" imports.
@@ -39,6 +49,7 @@ In 2023, Poland reported many of its natural gas imports as coming from aggregat
 ## How to Run
 
 1. Download the Eurostat dataset `nrg_ti_gas` (imports of natural gas by partner country) as CSV and save it as `data/estat_nrg_ti_gas_en.csv`.
+   For the GIFs, also download `nrg_cb_gas` (supply of natural gas, which includes Poland's own production) and save it as `data/estat_nrg_cb_gas_en.csv`.
 2. Run the scripts in `src/` in this order:
    `data_prep.py`, `prepare_training_data.py`, `generate_aggregate_country_mapping.py`, `baseline_disaggregation.py`, `visualize_baseline.py`, `feature_engineering.py`, `ml_model.py`, `backtest_ml_disaggregation.py`, `evaluate_backtest.py`, `visualize_ml_vs_baseline.py`, `prepare_flow_tables.py`, `visualize_gas_trade_gif.py`, `visualize_gas_trade_sankey_gif.py`.
 3. Review the output plots in `data/` and the printed metrics.
