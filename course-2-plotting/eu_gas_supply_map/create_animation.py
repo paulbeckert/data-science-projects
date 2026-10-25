@@ -104,7 +104,7 @@ def create_gas_flow_gif(json_file_path, output_gif=None, fps=0.75, skip_years=0)
         
         # Create the GIF animation
         print(f"Creating GIF animation with {fps} frames per second...")
-        imageio.mimsave(output_gif, frames, fps=fps)
+        imageio.mimsave(output_gif, frames, fps=fps, loop=0)  # loop=0 repeats forever
         
         print(f"GIF animation saved to {output_gif}")
     
