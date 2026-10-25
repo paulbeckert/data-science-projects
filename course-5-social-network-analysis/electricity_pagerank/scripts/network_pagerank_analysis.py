@@ -305,15 +305,18 @@ def main(argv: list[str] | None = None) -> int:
 
     # Bubble size legend (reference circles for generation, now in TWh)
     ref_sizes_twh = [5, 50, 500]  # TWh
-    handles = [
-        plt.scatter([], [], s=ref * size_scale, facecolors='none', edgecolors='black', linewidths=1.2)
-        for ref in ref_sizes_twh
-    ]
-    plt.legend(
-        handles, [f"{ref} TWh" for ref in ref_sizes_twh],
-        title="Generation", loc="upper right", frameon=False,
-        labelspacing=2.5, borderpad=1.5, handletextpad=2.5
-    )
+    # Drawn in its own framed inset, because a matplotlib legend doesn't grow to fit large markers
+    legend_ax = plt.gca().inset_axes([0.66, 0.72, 0.32, 0.26])
+    legend_ax.set_xlim(0, 1)
+    legend_ax.set_ylim(0, 1)
+    legend_ax.set_xticks([])
+    legend_ax.set_yticks([])
+    legend_ax.set_facecolor('white')
+    legend_ax.grid(False)
+    legend_ax.text(0.5, 0.88, "Generation", ha='center', va='center', fontsize=11)
+    for x, ref in zip([0.13, 0.39, 0.74], ref_sizes_twh):
+        legend_ax.scatter(x, 0.45, s=ref * size_scale, facecolors='none', edgecolors='black', linewidths=1.2)
+        legend_ax.text(x, 0.08, f"{ref} TWh", ha='center', va='center', fontsize=10)
 
     # Labels and title
     plt.title("Who matters vs who connects - Electricity trade in Europe (2023)", fontsize=16, weight='light')
