@@ -8,10 +8,12 @@ This project reconstructs the country-level breakdown of Poland's 2023 natural g
 
 In 2023, Poland reported many of its natural gas imports as coming from aggregated regions (e.g., "Other European countries") rather than individual countries, making it difficult to analyze trade flows. This project aims to disaggregate these flows using historical data and predictive modeling.
 
+Knowing the country of origin matters for life cycle assessment, because gas from different countries has very different supply chains, for example pipeline gas from Norway and LNG from Qatar. In Eurostat's gas trade data, "Not specified" shows up for many countries, while the regional "Other ..." groups only appear for Poland in 2023 and 2024.
+
 ## Approach
 
 1. **Data Cleaning & Preparation**: Load and clean Eurostat gas trade data, filter for Poland and relevant units/products, and identify aggregated vs. disaggregated partners.
-2. **Mapping**: Assign countries to aggregates using region logic and user review, ensuring no country is in more than one aggregate.
+2. **Mapping**: Assign each country that Poland doesn't report separately in 2023 to the regional aggregate of its region, using a fixed country list per region. "Not specified" gets all of these countries, so it overlaps with the regional aggregates.
 3. **Baseline Disaggregation**: Use historical country shares to estimate the 2023 breakdown for each aggregate, ensuring the sum matches the reported total.
 4. **Visualization**: Visualize the baseline results and compare with previous years to check plausibility and highlight changes in trade structure.
 5. **Feature Engineering**: Add the country's import value and share of total imports from the two previous years.
@@ -38,6 +40,7 @@ Model and baseline split of "Other European countries", the largest aggregate:
 
 - Compare the results with the partner countries' reported exports.
 - Try other models and features, and refine the country to aggregate mapping.
+- Instead of a model, build a trade network graph from the known export and import flows and fill in the missing links from it.
 
 ## Repository Structure
 
@@ -48,10 +51,11 @@ Model and baseline split of "Other European countries", the largest aggregate:
 
 ## How to Run
 
-1. Download the Eurostat dataset `nrg_ti_gas` (imports of natural gas by partner country) as CSV and save it as `data/estat_nrg_ti_gas_en.csv`.
+1. Install the packages with `pip install -r requirements.txt`.
+2. Download the Eurostat dataset `nrg_ti_gas` (imports of natural gas by partner country) as CSV and save it as `data/estat_nrg_ti_gas_en.csv`.
    For the GIFs, also download `nrg_cb_gas` (supply of natural gas, which includes Poland's own production) and save it as `data/estat_nrg_cb_gas_en.csv`.
-2. Run the scripts in `src/` in this order:
+3. Run the scripts in `src/` in this order:
    `data_prep.py`, `prepare_training_data.py`, `generate_aggregate_country_mapping.py`, `baseline_disaggregation.py`, `visualize_baseline.py`, `feature_engineering.py`, `ml_model.py`, `backtest_ml_disaggregation.py`, `evaluate_backtest.py`, `visualize_ml_vs_baseline.py`, `prepare_flow_tables.py`, `visualize_gas_trade_gif.py`, `visualize_gas_trade_sankey_gif.py`.
-3. Review the output plots in `data/` and the printed metrics.
+4. Review the output plots in `data/` and the printed metrics.
 
 

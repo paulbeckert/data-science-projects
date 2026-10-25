@@ -1,0 +1,6 @@
+pandas
+networkx
+scipy
+matplotlib
+seaborn
+adjustText

@@ -23,6 +23,13 @@ Top 3 matches for four test queries, with their cosine similarity:
 
 Across all test queries the best match had an average similarity of 0.604. That says how close the texts are, not whether the match is what a user wanted. Testing with real users would be the next step.
 
+## Open ideas
+
+- Test with real users whether the suggestions help them find the right product.
+- Use the CPC classification of the products as an extra signal.
+- Search at activity level, not only product level.
+- Add a synonym list for common terms.
+
 ## Data
 
 The input is the ecoinvent v3.11 database overview, which you can download from the [ecoinvent website](https://ecoinvent.org). The scripts read its "Intermediate Exchanges" sheet. Save it as `data/raw/Database-Overview-for-ecoinvent-v3.11.xlsx`.

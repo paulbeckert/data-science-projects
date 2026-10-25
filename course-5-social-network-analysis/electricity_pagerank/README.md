@@ -22,7 +22,7 @@ Countries are the 2 letter codes Eurostat uses, so Greece is `EL`. Some countrie
 ## How to run
 
 ```bash
-pip install pandas networkx scipy matplotlib seaborn adjustText
+pip install -r requirements.txt
 cd scripts
 python prepare_eurostat_inputs.py
 python network_pagerank_analysis.py --trade-file ../data/electricity_trade_2023.csv
