@@ -4,7 +4,7 @@ Side projects I built while doing the [Applied Data Science with Python](https:/
 
 | Course | Project |
 | --- | --- |
-| 1. [Introduction to Data Science in Python](https://www.coursera.org/learn/python-data-analysis) | |
+| 1. [Introduction to Data Science in Python](https://www.coursera.org/learn/python-data-analysis) | No side project, the course is an introduction to Python, pandas and basic statistics |
 | 2. [Applied Plotting, Charting & Data Representation in Python](https://www.coursera.org/learn/python-plotting) | [eu_gas_supply_map](course-2-plotting/eu_gas_supply_map/) maps where the EU's natural gas has come from each year since 1990 |
 | 3. [Applied Machine Learning in Python](https://www.coursera.org/learn/python-machine-learning) | [poland_gas_trade_ml](course-3-machine-learning/poland_gas_trade_ml/) splits Poland's natural gas imports that Eurostat reports as aggregated regions back into countries |
 | 4. [Applied Text Mining in Python](https://www.coursera.org/learn/python-text-mining) | [semantic_search](course-4-text-mining/semantic_search/) matches free text queries to ecoinvent product names with sentence embeddings |

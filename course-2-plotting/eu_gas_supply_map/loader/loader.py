@@ -110,31 +110,3 @@ def load_eurostat_supply_data(filepath: Path, years: Optional[List[int]] = None)
         supply_data = supply_data[supply_data['period'].isin(years)]
 
     return supply_data
-
-
-if __name__ == "__main__":
-    # Example usage
-    base_dir = Path.cwd()
-    data_dir = base_dir / "data-input" / "Eurostat"
-    
-    # Test loading import data
-    import_file = data_dir / "estat_nrg_ti_gas_en.csv"
-    if import_file.exists():
-        years_to_load = [2023]  # Focus on 2023
-        imports = load_eurostat_import_data(import_file, years_to_load)
-        print(f"Loaded {len(imports)} import records for years {years_to_load}")
-        print(f"Available years: {sorted(imports['period'].unique())}")
-        print(f"Sample data:\n{imports.head()}")
-    else:
-        print(f"Import file not found at {import_file}")
-
-    # Test loading supply data
-    supply_file = data_dir / "estat_nrg_cb_gas_en.csv"
-    if supply_file.exists():
-        years_to_load = [2023]  # Focus on 2023
-        supply = load_eurostat_supply_data(supply_file, years_to_load)
-        print(f"Loaded {len(supply)} supply records for years {years_to_load}")
-        print(f"Available years: {sorted(supply['period'].unique())}")
-        print(f"Sample data:\n{supply.head()}")
-    else:
-        print(f"Supply file not found at {supply_file}")
