@@ -12,4 +12,4 @@ Side projects I built while doing the [Applied Data Science with Python](https:/
 
 No input data is included. Each project's README says where to get it.
 
-These are learning projects, so expect rough edges.
+These are personal learning projects I did in 2025, so expect rough edges. None of them is used in the ecoinvent database or in ecoQuery, and they don't represent ecoinvent's methods or views.
