@@ -305,27 +305,15 @@ def main(argv: list[str] | None = None) -> int:
 
     # Bubble size legend (reference circles for generation, now in TWh)
     ref_sizes_twh = [5, 50, 500]  # TWh
-    # Place at top right
-    ref_x = plot_df['betweenness'].max() * 0.98 if plot_df['betweenness'].max() > 0 else 0.1
-    ref_y_start = plot_df['pagerank'].max() * 0.98 if plot_df['pagerank'].max() > 0 else 0.1
-    ref_y_gap = (plot_df['pagerank'].max() - plot_df['pagerank'].min()) * 0.07 if plot_df['pagerank'].max() > plot_df['pagerank'].min() else 0.02
-    for i, ref in enumerate(ref_sizes_twh):
-        # Move the 500 TWh circle and label a bit lower
-        y_offset = 0.007 if ref == 500 else 0.0
-        circle_y = ref_y_start - i * ref_y_gap - y_offset
-        # Draw the reference circle
-        plt.scatter(ref_x, circle_y, s=ref * size_scale, facecolors='none', edgecolors='black', linewidths=1.2, zorder=20)
-        # Place the label to the right, with a white halo
-        label_x = ref_x + 0.01
-        label_y = circle_y
-        ref_label = plt.text(
-            label_x, label_y, f"{ref} TWh",
-            va='center', ha='left', fontsize=9, color='black', weight='light', zorder=21
-        )
-        ref_label.set_path_effects([
-            path_effects.Stroke(linewidth=2.5, foreground='white'),
-            path_effects.Normal()
-        ])
+    handles = [
+        plt.scatter([], [], s=ref * size_scale, facecolors='none', edgecolors='black', linewidths=1.2)
+        for ref in ref_sizes_twh
+    ]
+    plt.legend(
+        handles, [f"{ref} TWh" for ref in ref_sizes_twh],
+        title="Generation", loc="upper right", frameon=False,
+        labelspacing=2.5, borderpad=1.5, handletextpad=2.5
+    )
 
     # Labels and title
     plt.title("Who matters vs who connects - Electricity trade in Europe (2023)", fontsize=16, weight='light')
