@@ -27,7 +27,7 @@ Poland's 2023 natural gas supply, with the reported aggregates split into countr
 
 ![Sankey of Poland's 2023 natural gas supply](images/poland_gas_supply_2023_sankey.gif)
 
-Model and baseline split of "Other European countries", the largest aggregate:
+Model and baseline split of "Other European countries", the largest aggregate. The two methods disagree on the biggest supplier, Czechia for the model and Norway for the baseline. Neither is checked against real data, see Limitations.
 
 ![Model vs baseline for Other European countries](images/ml_vs_baseline_other_european_countries_2023.png)
 

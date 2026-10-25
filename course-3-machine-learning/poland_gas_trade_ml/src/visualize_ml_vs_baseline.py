@@ -30,23 +30,25 @@ def plot_ml_vs_baseline():
         # Combine for plotting
         df_plot = pd.concat([ml_agg, base_agg], axis=1).fillna(0)
         df_plot = df_plot.sort_values('ML_predicted', ascending=False)
-        plt.figure(figsize=(14, 7))
+        # Countries below 1 million m³ in both methods only add empty bars
+        df_plot = df_plot[(df_plot[['ML_predicted', 'Baseline_predicted']] > 1).any(axis=1)]
+        plt.figure(figsize=(10, 6))
         bar_width = 0.4
         x = range(len(df_plot))
         bars_ml = plt.bar([i - bar_width/2 for i in x], df_plot['ML_predicted'], width=bar_width, label='ML Predicted')
         bars_base = plt.bar([i + bar_width/2 for i in x], df_plot['Baseline_predicted'], width=bar_width, label='Baseline Predicted')
-        plt.title(f'{agg}: ML vs Baseline Disaggregation (2023, Natural gas)')
-        plt.ylabel('Predicted Imports (MIO_M3)')
+        plt.title(f"{agg.split(' (')[0]}, 2023: model vs baseline")
+        plt.ylabel('Predicted imports (million m³)')
         plt.xlabel('Country')
-        plt.xticks(x, df_plot.index, rotation=90)
+        plt.xticks(x, df_plot.index, rotation=45, ha='right')
         plt.legend()
         plt.tight_layout()
         # Add value labels
         for bars, col in zip([bars_ml, bars_base], ['ML_predicted', 'Baseline_predicted']):
             for idx, bar in enumerate(bars):
                 height = bar.get_height()
-                if height > 0:
-                    plt.text(bar.get_x() + bar.get_width() / 2, height, f'{height:.1f}', ha='center', va='bottom', fontsize=7, rotation=90)
+                if height >= 0.5:
+                    plt.text(bar.get_x() + bar.get_width() / 2, height, f'{height:.0f}', ha='center', va='bottom', fontsize=8)
         plot_path = os.path.join(PLOT_DIR, f'ml_vs_baseline_{agg[:30].replace(" ", "_")}_2023_natural_gas.png')
         plt.savefig(plot_path)
         plt.close()
