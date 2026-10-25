@@ -1,0 +1,7 @@
+pandas
+numpy
+geopandas
+cartopy
+matplotlib
+shapely
+imageio
