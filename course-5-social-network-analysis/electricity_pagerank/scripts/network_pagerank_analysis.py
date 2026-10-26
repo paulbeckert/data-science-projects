@@ -275,7 +275,9 @@ def main(argv: list[str] | None = None) -> int:
         linewidth=0.7,
         zorder=5
     )
-    cbar = plt.colorbar(sc, label="Net Export (TWh)")
+    cbar = plt.colorbar(sc, label="Net export (TWh), negative = net import")
+    cbar.ax.text(0.5, 1.01, "net exporter", transform=cbar.ax.transAxes, ha="center", va="bottom", fontsize=10)
+    cbar.ax.text(0.5, -0.01, "net importer", transform=cbar.ax.transAxes, ha="center", va="top", fontsize=10)
 
     # Add country labels for all geographies in plot_df, centered in each circle
     # Use adjustText to avoid label overlap and add connecting lines
