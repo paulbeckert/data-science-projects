@@ -243,9 +243,9 @@ def main(argv: list[str] | None = None) -> int:
     plt.rcParams['font.family'] = 'DejaVu Sans'
     plt.rcParams['font.weight'] = 'light'
 
-    # Diverging colormap for net export, green for importers, yellow around zero, blue for exporters
-    brand_colors = ['#3ACB81', '#FFD70C', '#3F59DC']
-    brand_cmap = LinearSegmentedColormap.from_list('brand_cmap', brand_colors, N=256)
+    # Diverging colormap for net export, red for importers, light gray around zero, blue for exporters
+    net_export_colors = ['#B2182B', '#EF8A62', '#E0E0E0', '#67A9CF', '#2166AC']
+    net_export_cmap = LinearSegmentedColormap.from_list('net_export_cmap', net_export_colors, N=256)
 
     # Filter out countries with NaN generation_gwh
     plot_df = df_merged[df_merged['generation_gwh'].notna()].copy()
@@ -268,7 +268,7 @@ def main(argv: list[str] | None = None) -> int:
         plot_df['pagerank'],
         s=plot_df['generation_twh'] * size_scale,
         c=plot_df['net_export_twh'],
-        cmap=brand_cmap,
+        cmap=net_export_cmap,
         norm=norm,
         alpha=0.8,
         edgecolor='black',
