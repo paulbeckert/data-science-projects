@@ -35,6 +35,7 @@ Model and baseline split of "Other European countries", the largest aggregate. T
 
 - Both methods learn from historical shares, so they can't know about sudden changes. Poland stopped importing Russian gas in 2022, but with Eurostat data downloaded in October 2026 both still give Russia between 2 and 3.3 billion m³ of the 2023 "Not specified" imports.
 - The backtest R² of about 0.99 looks better than the model is. Most rows are countries with zero imports, and most aggregates hold only one real supplier, which is easy to predict. The one real test is the 2019 split of "Other European countries" between Czechia and Norway, where the true split is 70/30 and the model predicts 50/49.
+- In 2024 Poland reported 94% of its gas imports only as aggregates, up from 87% in 2023. A model trained on years up to 2021 can't follow that, so the project stays on 2023.
 
 ## Open Ideas
 
