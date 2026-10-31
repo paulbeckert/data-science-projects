@@ -13,7 +13,7 @@ It also saves a scatter plot of PageRank against betweenness, with points sized
 by generation.
 
 Usage:
-    python network_pagerank_analysis.py --trade-file ../data/electricity_trade_2023.csv
+    python network_pagerank_analysis.py --trade-file ../data/electricity_trade_2024.csv
 
 Assumptions:
 - The trade file has at least the columns exporter, importer, flow_gwh
@@ -108,8 +108,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument(
         "--generation-file",
         type=Path,
-        default=Path(__file__).parent.parent / "data" / "electricity_generation_2023.csv",
-        help="Path to CSV file with columns country,generation_gwh (default: data/electricity_generation_2023.csv)",
+        default=Path(__file__).parent.parent / "data" / "electricity_generation_2024.csv",
+        help="Path to CSV file with columns country,generation_gwh (default: data/electricity_generation_2024.csv)",
     )
     return parser.parse_args(argv)
 
@@ -320,7 +320,7 @@ def main(argv: list[str] | None = None) -> int:
         legend_ax.text(x, 0.08, f"{ref} TWh", ha='center', va='center', fontsize=10)
 
     # Labels and title
-    plt.title("Who matters vs who connects - Electricity trade in Europe (2023)", fontsize=16, weight='light')
+    plt.title("Who matters vs who connects - Electricity trade in Europe (2024)", fontsize=16, weight='light')
     plt.xlabel("Betweenness centrality", fontsize=13, weight='light')
     plt.ylabel("PageRank", fontsize=13, weight='light')
     # Start both axes just below zero

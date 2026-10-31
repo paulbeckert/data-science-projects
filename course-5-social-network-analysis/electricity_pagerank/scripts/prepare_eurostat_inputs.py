@@ -17,7 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 DATA_DIR = Path(__file__).parent.parent / "data"
-YEAR = 2023
+YEAR = 2024
 
 
 def load_flows(path: Path, reporter_role: str) -> pd.Series:

@@ -2,7 +2,7 @@
 
 Builds a directed, weighted graph of cross-border electricity flows and ranks countries by PageRank. A country ranks high when a lot of electricity flows into it from countries that rank high themselves. It also computes betweenness centrality and compares network position with domestic generation.
 
-![PageRank vs betweenness, 2023](images/pagerank_vs_betweenness_2023.png)
+![PageRank vs betweenness, 2024](images/pagerank_vs_betweenness_2024.png)
 
 ## Data
 
@@ -25,5 +25,5 @@ Countries are the 2 letter codes Eurostat uses, so Greece is `EL`. Some countrie
 pip install -r requirements.txt
 cd scripts
 python prepare_eurostat_inputs.py
-python network_pagerank_analysis.py --trade-file ../data/electricity_trade_2023.csv
+python network_pagerank_analysis.py --trade-file ../data/electricity_trade_2024.csv
 ```
